@@ -26,6 +26,9 @@ jobs:
         run: |
           docker pull hashicorp/terraform:${{ steps.get-terraform-version.outputs.version }}
 
+      - name: Remove azure backend
+        run: rm ./backend.tf
+
       - name: Run a Terraform init
         run: |
           docker run \
