@@ -18,6 +18,10 @@ This project creates and manages Azure Container Registries for RSD.
 |------|---------|
 | <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 3.98.0 |
 
+## Modules
+
+No modules.
+
 ## Resources
 
 | Name | Type |
