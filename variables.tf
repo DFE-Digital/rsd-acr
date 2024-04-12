@@ -47,6 +47,12 @@ variable "registry_retention_days" {
   default     = 7
 }
 
+variable "registry_network_allowed_ip_ranges" {
+  description = "Allowed IP ranges for the registry"
+  type        = list(string)
+  default     = []
+}
+
 variable "private_endpoint_configutations" {
   description = <<EOT
   Map of private endpoint configurations, specifying the VNet name/resource-group and a new subnet CIDR. A subnet, private endpoint and DNS zone will be created within the specified VNet.

@@ -23,10 +23,19 @@ resource "azurerm_container_registry" "acr" {
   }
 
   dynamic "network_rule_set" {
-    for_each = local.registry_sku == "Premium" && !local.registry_public_access_enabled ? [1] : []
+    for_each = local.registry_sku == "Premium" && length(local.registry_network_allowed_ip_ranges) > 0 ? { ip_rules : local.registry_network_allowed_ip_ranges } : {}
 
     content {
       default_action = "Deny"
+
+      dynamic "ip_rule" {
+        for_each = network_rule_set.value
+
+        content {
+          action   = "Allow"
+          ip_range = ip_rule.value
+        }
+      }
     }
   }
 }
