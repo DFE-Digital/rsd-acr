@@ -66,10 +66,11 @@ variable "private_endpoint_configutations" {
   }
   EOT
   type = map(object({
-    vnet_name                = string
-    vnet_resource_group_name = string
-    subnet_cidr              = string
-    subnet_route_table_name  = optional(string, null)
+    vnet_name                       = string
+    vnet_resource_group_name        = string
+    subnet_cidr                     = string
+    subnet_route_table_name         = optional(string, null)
+    create_acr_privatelink_dns_zone = optional(bool, true)
   }))
   default = {}
 }
