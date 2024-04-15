@@ -23,7 +23,7 @@ resource "azurerm_container_registry" "acr" {
   }
 
   dynamic "network_rule_set" {
-    for_each = local.registry_sku == "Premium" && length(local.registry_network_allowed_ip_ranges) > 0 ? { ip_rules : local.registry_network_allowed_ip_ranges } : {}
+    for_each = local.registry_sku == "Premium" ? { ip_rules : local.registry_network_allowed_ip_ranges } : {}
 
     content {
       default_action = "Deny"
