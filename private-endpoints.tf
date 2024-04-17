@@ -1,5 +1,5 @@
 resource "azurerm_subnet" "acr_private_endpoint" {
-  for_each = local.private_endpoint_configutations
+  for_each = local.private_endpoint_configurations
 
   name                                      = "${local.resource_prefix}-${each.key}-acrprivateendpoint"
   virtual_network_name                      = data.azurerm_virtual_network.private_endpoints[each.key].name
@@ -10,7 +10,7 @@ resource "azurerm_subnet" "acr_private_endpoint" {
 
 resource "azurerm_subnet_route_table_association" "acr_private_endpoint" {
   for_each = {
-    for k, v in local.private_endpoint_configutations : k => v if v["subnet_route_table_name"] != null
+    for k, v in local.private_endpoint_configurations : k => v if v["subnet_route_table_name"] != null
   }
 
   subnet_id      = azurerm_subnet.acr_private_endpoint[each.key].id
@@ -18,7 +18,7 @@ resource "azurerm_subnet_route_table_association" "acr_private_endpoint" {
 }
 
 resource "azurerm_private_endpoint" "acr" {
-  for_each = local.private_endpoint_configutations
+  for_each = local.private_endpoint_configurations
 
   name                = "${local.resource_prefix}${each.key}"
   location            = data.azurerm_virtual_network.private_endpoints[each.key].location
@@ -44,7 +44,7 @@ resource "azurerm_private_endpoint" "acr" {
 
 resource "azurerm_private_dns_zone" "acr_private_link" {
   for_each = {
-    for k, v in local.private_endpoint_configutations : k => v if v["create_acr_privatelink_dns_zone"]
+    for k, v in local.private_endpoint_configurations : k => v if v["create_acr_privatelink_dns_zone"]
   }
 
   name                = "privatelink.azurecr.io"
@@ -53,7 +53,7 @@ resource "azurerm_private_dns_zone" "acr_private_link" {
 }
 
 resource "azurerm_private_dns_zone_virtual_network_link" "acr_private_link" {
-  for_each = local.private_endpoint_configutations
+  for_each = local.private_endpoint_configurations
 
   name                  = "${local.resource_prefix}acrprivatelink"
   resource_group_name   = data.azurerm_virtual_network.private_endpoints[each.key].resource_group_name

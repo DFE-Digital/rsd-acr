@@ -14,5 +14,5 @@ locals {
   registry_network_allowed_ip_ranges = var.registry_network_allowed_ip_ranges
   registry_retention_days            = var.registry_retention_days
 
-  private_endpoint_configutations = var.private_endpoint_configutations
+  private_endpoint_configurations = var.private_endpoint_configurations
 }
