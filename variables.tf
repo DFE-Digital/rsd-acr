@@ -53,7 +53,7 @@ variable "registry_network_allowed_ip_ranges" {
   default     = []
 }
 
-variable "private_endpoint_configutations" {
+variable "private_endpoint_configurations" {
   description = <<EOT
   Map of private endpoint configurations, specifying the VNet name/resource-group and a new subnet CIDR. A subnet, private endpoint and DNS zone will be created within the specified VNet.
   {
