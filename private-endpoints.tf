@@ -20,7 +20,7 @@ resource "azurerm_subnet_route_table_association" "acr_private_endpoint" {
 resource "azurerm_private_endpoint" "acr" {
   for_each = local.private_endpoint_configurations
 
-  name                = "${local.resource_prefix}${each.key}"
+  name                = "${local.resource_prefix}-acr.${azurerm_subnet.acr_private_endpoint[each.key].name}"
   location            = data.azurerm_virtual_network.private_endpoints[each.key].location
   resource_group_name = azurerm_resource_group.acr.name
   subnet_id           = azurerm_subnet.acr_private_endpoint[each.key].id
