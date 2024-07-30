@@ -44,3 +44,25 @@ resource "azurerm_container_registry" "acr" {
     identity_ids = azurerm_user_assigned_identity.acr.id
   }
 }
+
+resource "azurerm_container_registry_task" "untagged" {
+  name                  = "prune-untagged"
+  container_registry_id = azurerm_container_registry.acr.id
+
+  platform {
+    os = "Linux"
+  }
+
+  identity {
+    type         = "UserAssigned"
+    identity_ids = azurerm_user_assigned_identity.acr.id
+  }
+
+  timer_trigger {
+    name     = "every-day-at-midnight"
+    enabled  = true
+    schedule = "0 0 * * *"
+  }
+
+  tags = local.tags
+}

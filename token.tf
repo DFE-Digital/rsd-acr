@@ -4,7 +4,7 @@ resource "azurerm_container_registry_scope_map" "rw-all" {
   resource_group_name     = azurerm_resource_group.acr.name
 
   actions = [
-    "repositories/*/content/read",
-    "repositories/*/content/write"
+    "content/read",
+    "content/write"
   ]
 }
