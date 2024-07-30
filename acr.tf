@@ -38,4 +38,9 @@ resource "azurerm_container_registry" "acr" {
       }
     }
   }
+
+  identity {
+    type         = "UserAssigned"
+    identity_ids = azurerm_user_assigned_identity.acr.id
+  }
 }
