@@ -98,3 +98,15 @@ variable "assign_acrpush_role_to_uami" {
   type        = bool
   default     = false
 }
+
+variable "enable_agent_pool" {
+  description = "Deploy a private Agent Pool for executing ACR Tasks in"
+  type        = bool
+  default     = false
+}
+
+variable "agent_pool_sku" {
+  description = "The SKU for the private Agent Pool"
+  type        = string
+  default     = "S1"
+}

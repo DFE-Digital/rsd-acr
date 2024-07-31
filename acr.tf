@@ -51,6 +51,8 @@ resource "azurerm_container_registry_task" "untagged" {
   name                  = "untag-and-prune-unused-images"
   container_registry_id = azurerm_container_registry.acr.id
 
+  agent_pool_name = local.enable_agent_pool ? azurerm_container_registry_agent_pool.acr[0].name : null
+
   platform {
     os = "Linux"
   }

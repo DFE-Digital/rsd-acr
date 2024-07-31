@@ -13,6 +13,8 @@ locals {
   registry_public_access_enabled     = length(local.registry_network_allowed_ip_ranges) > 0 ? true : var.registry_public_access_enabled
   registry_network_allowed_ip_ranges = var.registry_network_allowed_ip_ranges
   registry_retention_days            = var.registry_retention_days
+  enable_agent_pool                  = var.enable_agent_pool
+  agent_pool_sku                     = var.agent_pool_sku
   enable_weekly_purge_task           = var.enable_weekly_purge_task
 
   assign_acrpull_role_to_uami = var.assign_acrpull_role_to_uami
