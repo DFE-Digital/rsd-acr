@@ -1,5 +1,5 @@
 resource "azurerm_user_assigned_identity" "acr" {
-  name                = "${local.resource_prefix}-uami-acr"
+  name                = "${local.resource_prefix}-uami"
   location            = local.azure_location
   resource_group_name = azurerm_resource_group.acr.name
   tags                = local.tags
