@@ -61,3 +61,47 @@ resource "azurerm_private_dns_zone_virtual_network_link" "acr_private_link" {
   virtual_network_id    = data.azurerm_virtual_network.private_endpoints[each.key].id
   tags                  = local.tags
 }
+
+# Private Endpoint for Dedicated Agent Pool
+resource "azurerm_private_dns_zone" "acr_agent_pool" {
+  count = local.enable_agent_pool ? 1 : 0
+
+  name                = "privatelink.azurecr.io"
+  resource_group_name = azurerm_resource_group.acr.name
+  tags                = local.tags
+}
+
+resource "azurerm_private_dns_zone_virtual_network_link" "acr_agent_pool" {
+  count = local.enable_agent_pool ? 1 : 0
+
+  name                  = "${local.resource_prefix}acrprivatelink"
+  resource_group_name   = azurerm_resource_group.acr.name
+  private_dns_zone_name = "privatelink.azurecr.io"
+  virtual_network_id    = azurerm_virtual_network.default[0].id
+  tags                  = local.tags
+}
+
+resource "azurerm_private_endpoint" "acr_agent_pool" {
+  count = local.enable_agent_pool ? 1 : 0
+
+  name                = "${local.resource_prefix}-acr.${azurerm_container_registry_agent_pool.acr[0].name}"
+  location            = azurerm_resource_group.acr.location
+  resource_group_name = azurerm_resource_group.acr.name
+  subnet_id           = azurerm_subnet.agent_pool[0].id
+
+  custom_network_interface_name = "${local.resource_prefix}-nic"
+
+  private_service_connection {
+    name                           = azurerm_container_registry_agent_pool.acr[0].name
+    private_connection_resource_id = azurerm_container_registry.acr.id
+    subresource_names              = ["registry"]
+    is_manual_connection           = false
+  }
+
+  private_dns_zone_group {
+    name                 = "agent-pool-acr-private-link"
+    private_dns_zone_ids = [azurerm_virtual_network.default[0].id]
+  }
+
+  tags = local.tags
+}
