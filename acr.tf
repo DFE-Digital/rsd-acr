@@ -68,3 +68,14 @@ resource "azurerm_container_registry_task" "untagged" {
 
   tags = local.tags
 }
+
+resource "null_resource" "acr_build" {
+  triggers = {
+    hash = sha256(file("./scripts/acr-scan.sh"))
+  }
+
+  provisioner "local-exec" {
+    command     = "az acr build --registry ${azurerm_container_registry.acr.name} --image acr-scan:latest ."
+    working_dir = "."
+  }
+}
