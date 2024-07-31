@@ -36,13 +36,19 @@ variable "registry_admin_enabled" {
 }
 
 variable "registry_public_access_enabled" {
-  description = "hether public network access is allowed for the container registry"
+  description = "Whether public network access is allowed for the container registry"
+  type        = bool
+  default     = false
+}
+
+variable "enable_weekly_purge_task" {
+  description = "Launch a weekly ACR task that untags and removes any container images that are not attached to Container Apps"
   type        = bool
   default     = false
 }
 
 variable "registry_retention_days" {
-  description = "The number of days to retain an untagged manifest after which it gets purged."
+  description = "(preview) The number of days to retain an untagged manifest after which it gets purged."
   type        = number
   default     = 7
 }
@@ -79,4 +85,28 @@ variable "tags" {
   description = "Tags to be applied to all resources"
   type        = map(string)
   default     = {}
+}
+
+variable "assign_acrpull_role_to_uami" {
+  description = "Assign the AcrPull role to the ACR Identity"
+  type        = bool
+  default     = false
+}
+
+variable "assign_acrpush_role_to_uami" {
+  description = "Assign the AcrPush role to the ACR Identity"
+  type        = bool
+  default     = false
+}
+
+variable "enable_agent_pool" {
+  description = "Deploy a private Agent Pool for executing ACR Tasks in"
+  type        = bool
+  default     = false
+}
+
+variable "agent_pool_sku" {
+  description = "The SKU for the private Agent Pool"
+  type        = string
+  default     = "S1"
 }
