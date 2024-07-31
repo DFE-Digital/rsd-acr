@@ -41,7 +41,7 @@ resource "azurerm_container_registry" "acr" {
 
   identity {
     type         = "UserAssigned"
-    identity_ids = azurerm_user_assigned_identity.acr.id
+    identity_ids = [azurerm_user_assigned_identity.acr.id]
   }
 }
 
@@ -57,7 +57,7 @@ resource "azurerm_container_registry_task" "untagged" {
 
   identity {
     type         = "UserAssigned"
-    identity_ids = azurerm_user_assigned_identity.acr.id
+    identity_ids = [azurerm_user_assigned_identity.acr.id]
   }
 
   timer_trigger {
