@@ -49,6 +49,8 @@ This project creates and manages Azure Container Registries for RSD.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_assign_acrpull_role_to_uami"></a> [assign\_acrpull\_role\_to\_uami](#input\_assign\_acrpull\_role\_to\_uami) | Assign the AcrPull role to the ACR Identity | `bool` | `false` | no |
+| <a name="input_assign_acrpush_role_to_uami"></a> [assign\_acrpush\_role\_to\_uami](#input\_assign\_acrpush\_role\_to\_uami) | Assign the AcrPush role to the ACR Identity | `bool` | `false` | no |
 | <a name="input_azure_location"></a> [azure\_location](#input\_azure\_location) | Azure location in which to launch resources. | `string` | n/a | yes |
 | <a name="input_enable_weekly_purge_task"></a> [enable\_weekly\_purge\_task](#input\_enable\_weekly\_purge\_task) | Launch a weekly ACR task that untags and removes any container images that are not attached to Container Apps | `bool` | `false` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment name. Will be used along with `project_name` as a prefix for all resources. | `string` | n/a | yes |

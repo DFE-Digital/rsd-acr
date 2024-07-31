@@ -6,6 +6,8 @@ resource "azurerm_user_assigned_identity" "acr" {
 }
 
 resource "azurerm_role_assignment" "acr_pull" {
+  count = local.assign_acrpull_role_to_uami ? 1 : 0
+
   scope                = azurerm_container_registry.acr.id
   role_definition_name = "AcrPull"
   principal_id         = azurerm_user_assigned_identity.acr.id
@@ -13,6 +15,8 @@ resource "azurerm_role_assignment" "acr_pull" {
 }
 
 resource "azurerm_role_assignment" "acr_push" {
+  count = local.assign_acrpush_role_to_uami ? 1 : 0
+
   scope                = azurerm_container_registry.acr.id
   role_definition_name = "AcrPush"
   principal_id         = azurerm_user_assigned_identity.acr.id

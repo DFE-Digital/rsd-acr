@@ -15,5 +15,8 @@ locals {
   registry_retention_days            = var.registry_retention_days
   enable_weekly_purge_task           = var.enable_weekly_purge_task
 
+  assign_acrpull_role_to_uami = var.assign_acrpull_role_to_uami
+  assign_acrpush_role_to_uami = var.assign_acrpush_role_to_uami
+
   private_endpoint_configurations = var.private_endpoint_configurations
 }

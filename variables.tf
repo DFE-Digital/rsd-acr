@@ -86,3 +86,15 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "assign_acrpull_role_to_uami" {
+  description = "Assign the AcrPull role to the ACR Identity"
+  type        = bool
+  default     = false
+}
+
+variable "assign_acrpush_role_to_uami" {
+  description = "Assign the AcrPush role to the ACR Identity"
+  type        = bool
+  default     = false
+}
