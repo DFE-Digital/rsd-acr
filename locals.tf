@@ -13,6 +13,7 @@ locals {
   registry_public_access_enabled     = length(local.registry_network_allowed_ip_ranges) > 0 ? true : var.registry_public_access_enabled
   registry_network_allowed_ip_ranges = var.registry_network_allowed_ip_ranges
   registry_retention_days            = var.registry_retention_days
+  enable_weekly_purge_task           = var.enable_weekly_purge_task
 
   private_endpoint_configurations = var.private_endpoint_configurations
 }

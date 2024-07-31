@@ -36,13 +36,19 @@ variable "registry_admin_enabled" {
 }
 
 variable "registry_public_access_enabled" {
-  description = "hether public network access is allowed for the container registry"
+  description = "Whether public network access is allowed for the container registry"
+  type        = bool
+  default     = false
+}
+
+variable "enable_weekly_purge_task" {
+  description = "Launch a weekly ACR task that untags and removes any container images that are not attached to Container Apps"
   type        = bool
   default     = false
 }
 
 variable "registry_retention_days" {
-  description = "The number of days to retain an untagged manifest after which it gets purged."
+  description = "(preview) The number of days to retain an untagged manifest after which it gets purged."
   type        = number
   default     = 7
 }

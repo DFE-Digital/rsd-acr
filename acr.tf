@@ -46,7 +46,9 @@ resource "azurerm_container_registry" "acr" {
 }
 
 resource "azurerm_container_registry_task" "untagged" {
-  name                  = "prune-untagged"
+  count = local.enable_weekly_purge_task ? 1 : 0
+
+  name                  = "untag-and-prune-unused-images"
   container_registry_id = azurerm_container_registry.acr.id
 
   platform {
@@ -59,9 +61,9 @@ resource "azurerm_container_registry_task" "untagged" {
   }
 
   timer_trigger {
-    name     = "every-day-at-midnight"
+    name     = "At 00:00 on Sunday"
     enabled  = true
-    schedule = "0 0 * * *"
+    schedule = "0 0 * * 0"
   }
 
   tags = local.tags
