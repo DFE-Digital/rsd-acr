@@ -12,15 +12,7 @@ resource "azurerm_container_registry" "acr" {
   admin_enabled                 = local.registry_admin_enabled
   public_network_access_enabled = local.registry_public_access_enabled
   tags                          = local.tags
-
-  dynamic "retention_policy" {
-    for_each = local.registry_sku == "Premium" ? [1] : []
-
-    content {
-      days    = local.registry_retention_days
-      enabled = local.registry_retention_days > 0
-    }
-  }
+  retention_policy_in_days      = local.registry_retention_days
 
   dynamic "network_rule_set" {
     for_each = local.registry_sku == "Premium" ? { ip_rules : local.registry_network_allowed_ip_ranges } : {}
