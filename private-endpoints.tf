@@ -1,11 +1,11 @@
 resource "azurerm_subnet" "acr_private_endpoint" {
   for_each = local.private_endpoint_configurations
 
-  name                                      = "${local.resource_prefix}-${each.key}-acrprivateendpoint"
-  virtual_network_name                      = data.azurerm_virtual_network.private_endpoints[each.key].name
-  resource_group_name                       = data.azurerm_virtual_network.private_endpoints[each.key].resource_group_name
-  address_prefixes                          = [each.value["subnet_cidr"]]
-  private_endpoint_network_policies_enabled = false
+  name                              = "${local.resource_prefix}-${each.key}-acrprivateendpoint"
+  virtual_network_name              = data.azurerm_virtual_network.private_endpoints[each.key].name
+  resource_group_name               = data.azurerm_virtual_network.private_endpoints[each.key].resource_group_name
+  address_prefixes                  = [each.value["subnet_cidr"]]
+  private_endpoint_network_policies = "Disabled"
 }
 
 resource "azurerm_subnet_route_table_association" "acr_private_endpoint" {

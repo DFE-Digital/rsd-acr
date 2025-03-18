@@ -9,20 +9,20 @@ This project creates and manages Azure Container Registries for RSD.
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.7.5 |
-| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >= 3.98.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.9 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 4.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 3.98.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 4.19.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_azurerm_key_vault"></a> [azurerm\_key\_vault](#module\_azurerm\_key\_vault) | github.com/DFE-Digital/terraform-azurerm-key-vault-tfvars | v0.4.1 |
+| <a name="module_azurerm_key_vault"></a> [azurerm\_key\_vault](#module\_azurerm\_key\_vault) | github.com/DFE-Digital/terraform-azurerm-key-vault-tfvars | v0.5.1 |
 
 ## Resources
 
@@ -42,10 +42,14 @@ This project creates and manages Azure Container Registries for RSD.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_azure_client_id"></a> [azure\_client\_id](#input\_azure\_client\_id) | Service Principal Client ID | `string` | n/a | yes |
+| <a name="input_azure_client_secret"></a> [azure\_client\_secret](#input\_azure\_client\_secret) | Service Principal Client Secret | `string` | n/a | yes |
 | <a name="input_azure_location"></a> [azure\_location](#input\_azure\_location) | Azure location in which to launch resources. | `string` | n/a | yes |
+| <a name="input_azure_subscription_id"></a> [azure\_subscription\_id](#input\_azure\_subscription\_id) | Service Principal Subscription ID | `string` | n/a | yes |
+| <a name="input_azure_tenant_id"></a> [azure\_tenant\_id](#input\_azure\_tenant\_id) | Service Principal Tenant ID | `string` | n/a | yes |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment name. Will be used along with `project_name` as a prefix for all resources. | `string` | n/a | yes |
 | <a name="input_key_vault_access_ipv4"></a> [key\_vault\_access\_ipv4](#input\_key\_vault\_access\_ipv4) | List of IPv4 Addresses that are permitted to access the Key Vault | `list(string)` | n/a | yes |
-| <a name="input_private_endpoint_configurations"></a> [private\_endpoint\_configurations](#input\_private\_endpoint\_configurations) | Map of private endpoint configurations, specifying the VNet name/resource-group and a new subnet CIDR. A subnet, private endpoint and DNS zone will be created within the specified VNet.<br>  {<br>    endpoint-name = {<br>      vnet\_name: The Name of the VNet to create the private endpoint resources<br>      vnet\_resource\_group\_name: The Name of the resource group containing the VNet<br>      subnet\_cidr: THe CIDR of the Private Endpoint subnet to be created<br>      route\_table\_name: The Route Table ID to associate the subnet with (Optional)<br>    }<br>  } | <pre>map(object({<br>    vnet_name                       = string<br>    vnet_resource_group_name        = string<br>    subnet_cidr                     = string<br>    subnet_route_table_name         = optional(string, null)<br>    create_acr_privatelink_dns_zone = optional(bool, true)<br>  }))</pre> | `{}` | no |
+| <a name="input_private_endpoint_configurations"></a> [private\_endpoint\_configurations](#input\_private\_endpoint\_configurations) | Map of private endpoint configurations, specifying the VNet name/resource-group and a new subnet CIDR. A subnet, private endpoint and DNS zone will be created within the specified VNet.<br/>  {<br/>    endpoint-name = {<br/>      vnet\_name: The Name of the VNet to create the private endpoint resources<br/>      vnet\_resource\_group\_name: The Name of the resource group containing the VNet<br/>      subnet\_cidr: THe CIDR of the Private Endpoint subnet to be created<br/>      route\_table\_name: The Route Table ID to associate the subnet with (Optional)<br/>    }<br/>  } | <pre>map(object({<br/>    vnet_name                       = string<br/>    vnet_resource_group_name        = string<br/>    subnet_cidr                     = string<br/>    subnet_route_table_name         = optional(string, null)<br/>    create_acr_privatelink_dns_zone = optional(bool, true)<br/>  }))</pre> | `{}` | no |
 | <a name="input_project_name"></a> [project\_name](#input\_project\_name) | Project name. Will be used along with `environment` as a prefix for all resources. | `string` | n/a | yes |
 | <a name="input_registry_admin_enabled"></a> [registry\_admin\_enabled](#input\_registry\_admin\_enabled) | Specifies whether the admin user is enabled | `bool` | `false` | no |
 | <a name="input_registry_network_allowed_ip_ranges"></a> [registry\_network\_allowed\_ip\_ranges](#input\_registry\_network\_allowed\_ip\_ranges) | Allowed IP ranges for the registry | `list(string)` | `[]` | no |
